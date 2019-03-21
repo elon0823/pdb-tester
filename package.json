@@ -1,0 +1,22 @@
+{
+  "name": "pdb-tester",
+  "version": "1.0.0",
+  "description": "pdb-tester",
+  "main": "abci_request.js",
+  "scripts": {
+    "test": "jest --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elon0823/pdb-tester.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elon0823/pdb-tester/issues"
+  },
+  "homepage": "https://github.com/elon0823/pdb-tester#readme",
+  "dependencies": {
+    "jest": "^24.5.0"
+  }
+}
