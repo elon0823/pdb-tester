@@ -1,9 +1,13 @@
 const request = require('request');
 const JSONbig = require('json-bigint');
-const {ABCI_URL} = require('./config')
+const {ABCI_URL} = require('./config');
+const Util = require('./util');
 
 class ABCIHandler {
 
+	constructor() {
+
+	}
 	makeRequest(abciMethod, path, data) {
 
 		let dataStr = JSONbig.stringify(JSONbig.parse(data));
@@ -16,27 +20,11 @@ class ABCIHandler {
 				"jsonrpc":"2.0",
 				"params": {
 					"path": `${path}`,
-					"data": this.asciiToHexa(dataStr)
+					"data": Util.asciiToHexa(dataStr)
 				}
 			})
 		};
 		return options
-	}
-	decimalToHexString(number) {
-		if (number < 0)
-		{
-			number = 0xFFFFFFFF + number + 1;
-		}
-		return number.toString(16).toUpperCase();
-	}
-
-	asciiToHexa(str) {
-		var arr1 = [];
-		for (var n = 0, l = str.length; n < l; n ++) {
-			var hex = this.decimalToHexString(Number(str.charCodeAt(n)));
-			arr1.push(hex);
-		}
-		return arr1.join('');
 	}
 
 	sendData(method, path, data, callback) {
@@ -45,7 +33,10 @@ class ABCIHandler {
 				callback({"error":true, "data":""})
 				console.error('An error has occurred: ', error);
 			} else {
-				callback({"error":false, "data":body})
+				let data = JSONbig.parse(body);
+				
+				let value = Util.decodeBase64(data.result.response.value);
+				callback({"error":false, "data":JSONbig.parse(value)})
 				console.log('Post successful: response: ', body);
 			}
 		});
