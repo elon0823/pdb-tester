@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/elon0823/pdb-tester#readme",
   "dependencies": {
+    "int64-buffer": "^0.99.1007",
     "jest": "^24.5.0"
   }
 }

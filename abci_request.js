@@ -34,10 +34,15 @@ class ABCIHandler {
 				console.error('An error has occurred: ', error);
 			} else {
 				let data = JSONbig.parse(body);
-				
-				let value = Util.decodeBase64(data.result.response.value);
-				callback({"error":false, "data":JSONbig.parse(value)})
-				console.log('Post successful: response: ', body);
+				try {
+					let value = Util.decodeBase64(data.result.response.value);
+					callback({"error":false, "data":JSONbig.parse(value)})
+				}
+				catch(e) {
+					callback({"error":true, "data":e})
+				}
+
+				//console.log('Post successful: response: ', body);
 			}
 		});
 	}

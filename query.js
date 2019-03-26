@@ -1,5 +1,5 @@
 const ABCIHandler = require('./abci_request');
-
+const Uint64BE = require("int64-buffer").Uint64BE;
 class Query {
 
     constructor() {
@@ -15,19 +15,19 @@ class Query {
         return `{"start":${this.startTime},"end":${this.endTime},"ownerId":"${this.ownerId}", "qualifier":"${this.qualifier}"}`;
     }
     setData({start, end, ownerId, qualifier}) {
-        this.startTime = start;
-        this.endTime = end;
+        this.startTime = new Uint64BE(start);
+        this.endTime = new Uint64BE(end);
         this.ownerId = ownerId;
         this.qualifier = qualifier;
 
         return this;
     }
     setStartTime(start) {
-        this.startTime = start;
+        this.startTime = new Uint64BE(start);
         return this;
     }
     setEndTime(end) {
-        this.endTime = end;
+        this.endTime = new Uint64BE(end);
         return this;
     }
     setOwnerId(ownerId) {
