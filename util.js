@@ -33,6 +33,10 @@ class Util {
         let text = buff.toString('ascii');
 
         return text;
+	}
+	static encodeBase64(str) {
+
+		return Buffer.from(str).toString('base64');
     }
 }
 

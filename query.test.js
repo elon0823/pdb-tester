@@ -4,8 +4,14 @@ const Util = require('./util');
 
 describe('PaustDB Query Test', () => {
 
-    const query = new Query();
+    let query;
 
+    beforeEach(() => {
+        query = new Query();
+    });
+
+
+    //Range Query
     describe("Range Query All Range", () => {
 
         test('has data between 1-2544772882435375000', done => {
@@ -15,7 +21,7 @@ describe('PaustDB Query Test', () => {
                 let res = data.data;
 
                 expect(error).toBe(false);
-                expect(data.data.length).toEqual(3);
+                expect(data.data.length).toEqual(4);
                 done();
 
             };
@@ -81,11 +87,78 @@ describe('PaustDB Query Test', () => {
                 let error = data.error;
                 let res = data.data;
 
-                console.log(res);
-                expect(data.data.length).toEqual(3);
+                expect(data.data.length).toEqual(4);
                 done();
             };
             query.setStartTime("1").setEndTime("2544772882435375000").query(callback);
+
+        });
+    });
+
+    //OwnerID query
+    describe("OwnerID with 'owner1' Between all range", () => {
+
+        test('has one item', done => {
+
+            var callback = function(data) {
+
+                let error = data.error;
+                let res = data.data;
+
+                expect(data.data.length).toEqual(1);
+                done();
+            };
+            query.setStartTime("1").setEndTime("2544772882435375000").setOwnerId('owner1').query(callback);
+
+        });
+    });
+    describe("OwnerID with 'owner2' Between all range", () => {
+
+        test('has one item', done => {
+
+            var callback = function(data) {
+
+                let error = data.error;
+                let res = data.data;
+                
+                expect(data.data.length).toEqual(2);
+                done();
+            };
+            query.setStartTime("1").setEndTime("2544772882435375000").setOwnerId('owner2').query(callback);
+
+        });
+    });
+    describe("OwnerID with 'owner3' Between all range", () => {
+
+        test('has one item', done => {
+
+            var callback = function(data) {
+
+                let error = data.error;
+                let res = data.data;
+
+                expect(data.data.length).toEqual(1);
+                done();
+            };
+            query.setStartTime("1").setEndTime("2544772882435375000").setOwnerId('owner3').query(callback);
+
+        });
+    });
+
+    // qualifier query
+    describe("Qualifier with {type: temperature} Between all range", () => {
+
+        test('has one item', done => {
+
+            var callback = function(data) {
+
+                let error = data.error;
+                let res = data.data;
+
+                expect(data.data.length).toEqual(1);
+                done();
+            };
+            query.setStartTime("1").setEndTime("2544772882435375000").setQualifier("{\"type\":\"temperature\"}").query(callback);
 
         });
     });
