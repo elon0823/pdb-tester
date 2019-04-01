@@ -12,6 +12,7 @@ class Query {
         this.abci_handler = new ABCIHandler();
         this.method = "abci_query";
         this.path = "/query";
+        this.result = {};
     }
     makeData() {
         return `{"start":${this.startTime},"end":${this.endTime},"ownerId":"${this.ownerId}", "qualifier":"${this.qualifier}"}`;
@@ -43,7 +44,7 @@ class Query {
 
     query(callback) {
         let data = this.makeData();
-        this.abci_handler.sendData(this.method, this.path, data, callback);
+        this.abci_handler.sendData(this.method, this.path, data, this.result, callback);
     }
 }
 

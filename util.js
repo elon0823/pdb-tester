@@ -29,7 +29,7 @@ class Util {
 		return arr1.join('');
 	}
     static decodeBase64(str) {
-        let buff = new Buffer(str, 'base64');
+        let buff = Buffer.from(str, 'base64');
         let text = buff.toString('ascii');
 
         return text;

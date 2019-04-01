@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/elon0823/pdb-tester#readme",
   "dependencies": {
+    "bluebird": "^3.5.3",
     "int64-buffer": "^0.99.1007",
-    "jest": "^24.5.0"
+    "jest": "^24.5.0",
+    "prompt": "^1.0.0"
   }
 }

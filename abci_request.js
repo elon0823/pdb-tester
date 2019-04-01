@@ -27,7 +27,7 @@ class ABCIHandler {
 		return options
 	}
 
-	sendData(method, path, data, callback) {
+	sendData(method, path, data, result, callback) {
 		request(this.makeRequest(method, path, data), (error, response, body) => {
 			if (error) {
 				callback({"error":true, "data":""})
@@ -36,10 +36,31 @@ class ABCIHandler {
 				let data = JSONbig.parse(body);
 				try {
 					let value = Util.decodeBase64(data.result.response.value);
-					callback({"error":false, "data":JSONbig.parse(value)})
+
+					let res = {"error":false, "data":JSONbig.parse(value)};
+					result.error = false;
+					result.data = JSONbig.parse(value);
+					
+					if(callback != null) {
+						callback(res);
+					}
+					else {
+						console.log(res);
+					}
 				}
 				catch(e) {
-					callback({"error":true, "data":e})
+
+					let res = {"error":true, "data":e};
+					result.error = true;
+					result.data = e;
+
+					if(callback != null) {
+						callback(res)
+					}
+					else {
+						console.log(res);
+					}
+					
 				}
 
 				//console.log('Post successful: response: ', body);
